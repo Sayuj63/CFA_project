@@ -13,7 +13,7 @@ const Impact = () => {
     useEffect(() => {
         const fetchStats = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/impact/platform');
+                const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/impact/platform`);
                 // Animate numbers (simple logic for now, or just set them)
                 setStats(res.data);
             } catch (err) {

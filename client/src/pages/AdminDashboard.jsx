@@ -15,7 +15,7 @@ const AdminDashboard = () => {
 
     const fetchSellers = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/auth/sellers');
+            const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/auth/sellers`);
             if (res.data && res.data.length > 0) {
                 setSellers(res.data);
             } else {
@@ -39,7 +39,7 @@ const AdminDashboard = () => {
             const updatedSellers = sellers.map(s => s._id === id ? { ...s, isVerified: true } : s);
             setSellers(updatedSellers);
 
-            await axios.put(`http://localhost:5000/api/auth/verify/${id}`);
+            await axios.put(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/auth/verify/${id}`);
             // real fetch potentially if needed, but optimistic is fine for demo
         } catch (err) {
             alert("Verification failed");

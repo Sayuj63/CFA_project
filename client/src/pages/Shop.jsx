@@ -71,7 +71,7 @@ const Shop = () => {
         const fetchProducts = async () => {
             try {
                 // Determine API URL based on environment or default to localhost
-                const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5001/api/products';
+                const apiUrl = `${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/products`;
                 const res = await axios.get(apiUrl);
 
                 console.log("Fetched Products:", res.data); // Debug log

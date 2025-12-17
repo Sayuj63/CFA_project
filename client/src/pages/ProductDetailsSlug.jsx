@@ -80,7 +80,7 @@ const ProductDetailsSlug = () => {
         const fetchData = async () => {
             try {
                 // Determine API URL based on environment or default to localhost
-                const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5001/api/products';
+                const apiUrl = `${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/products`;
 
                 let foundProduct = null;
 
@@ -104,7 +104,7 @@ const ProductDetailsSlug = () => {
                 // Fetch Reviews if product found (using ID)
                 if (foundProduct) {
                     try {
-                        const reviewRes = await axios.get(`http://localhost:5000/api/reviews/${foundProduct._id}`);
+                        const reviewRes = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/reviews/${foundProduct._id}`);
                         setReviews(reviewRes.data);
                     } catch (e) {
                         console.log("No reviews found or backend offline");
@@ -140,12 +140,12 @@ const ProductDetailsSlug = () => {
                 return;
             }
 
-            await axios.post(`http://localhost:5000/api/reviews/${product._id}`, newReview, {
+            await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/reviews/${product._id}`, newReview, {
                 headers: { 'x-auth-token': token }
             });
 
             // Refresh reviews
-            const reviewRes = await axios.get(`http://localhost:5000/api/reviews/${product._id}`);
+            const reviewRes = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/reviews/${product._id}`);
             setReviews(reviewRes.data);
             setNewReview({ rating: 5, comment: '', sustainabilityRating: 5 });
             alert('Review submitted!');
@@ -163,7 +163,7 @@ const ProductDetailsSlug = () => {
         }
 
         try {
-            const res = await axios.put(`http://localhost:5000/api/reviews/${reviewId}/like`, {}, {
+            const res = await axios.put(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/reviews/${reviewId}/like`, {}, {
                 headers: { 'x-auth-token': token }
             });
 
@@ -183,7 +183,7 @@ const ProductDetailsSlug = () => {
         if (!token) return;
 
         try {
-            const res = await axios.post(`http://localhost:5000/api/reviews/${reviewId}/reply`,
+            const res = await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/reviews/${reviewId}/reply`,
                 { comment: replyComment },
                 { headers: { 'x-auth-token': token } }
             );

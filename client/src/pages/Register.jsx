@@ -18,7 +18,7 @@ const Register = () => {
     const onSubmit = async e => {
         e.preventDefault();
         try {
-            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5001/api/auth/register';
+            const apiUrl = `${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/auth/register`;
             const res = await axios.post(apiUrl, formData);
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('role', res.data.user.role);

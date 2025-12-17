@@ -32,7 +32,7 @@ const Sell = () => {
         };
 
         try {
-            await axios.post('http://localhost:5001/api/products', body, config);
+            await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/products`, body, config);
             alert('Product Listed Successfully!');
             navigate('/shop');
         } catch (err) {

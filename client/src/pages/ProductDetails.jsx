@@ -45,7 +45,7 @@ const ProductDetails = () => {
                 // Fetch Product
                 // In a real app, we would make an API call. For now, try API, fallback to mock.
                 try {
-                    const res = await axios.get(`http://localhost:5000/api/products/${id}`);
+                    const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/products/${id}`);
                     setProduct(res.data);
                 } catch (e) {
                     // Fallback logic for demo
@@ -68,7 +68,7 @@ const ProductDetails = () => {
 
                 // Fetch Reviews
                 try {
-                    const reviewRes = await axios.get(`http://localhost:5000/api/reviews/${id}`);
+                    const reviewRes = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/reviews/${id}`);
                     setReviews(reviewRes.data);
                 } catch (e) {
                     console.log("No reviews found or backend offline");
@@ -99,12 +99,12 @@ const ProductDetails = () => {
                 return;
             }
 
-            await axios.post(`http://localhost:5000/api/reviews/${id}`, newReview, {
+            await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/reviews/${id}`, newReview, {
                 headers: { 'x-auth-token': token }
             });
 
             // Refresh reviews
-            const reviewRes = await axios.get(`http://localhost:5000/api/reviews/${id}`);
+            const reviewRes = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/reviews/${id}`);
             setReviews(reviewRes.data);
             setNewReview({ rating: 5, comment: '', sustainabilityRating: 5 });
             alert('Review submitted!');
